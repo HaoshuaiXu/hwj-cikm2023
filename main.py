@@ -33,7 +33,13 @@ if __name__ == "__main__":
     training_loader = DataLoader(training_set, batch_size=64)
     test_loader = DataLoader(test_set, batch_size=64)
     # 创建模型
-    device = 'cuda'
+    device = (
+        "cuda"
+        if torch.cuda.is_available()
+        else "mps"
+        if torch.backends.mps.is_available()
+        else "cpu"
+    )
     model = RobertaClass()
     model.to(device)
     # 训练和测试
