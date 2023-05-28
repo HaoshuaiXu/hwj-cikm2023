@@ -13,11 +13,11 @@ if __name__ == "__main__":
     # 读取数据
     training_set = pd.read_csv(
         "./dataset/semeval_trainingset_class-code_without-entity.tsv",
-        delimeter='\t'
+        delimiter='\t'
     )
     test_set = pd.read_csv(
         "./dataset/semeval_testset_classcode.tsv",
-        delimeter='\t'
+        delimiter='\t'
     )
     # 载入 DataLoader
     training_set = RelationExtractionDataset(
