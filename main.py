@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # 训练和测试
     loss_fn = torch.nn.CrossEntropyLoss()
     lr = 1e-5
-    epochs = 10
+    epochs = 15
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
     for epoch in range(epochs):
         print(f"Epoch {epoch+1}\n-------------------------------")
