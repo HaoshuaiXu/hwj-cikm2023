@@ -25,13 +25,13 @@ if __name__ == "__main__":
         tokenizer=RobertaTokenizer.from_pretrained('roberta-base'),
         max_len=256
     )
-    training_set = RelationExtractionDataset(
+    test_set = RelationExtractionDataset(
         dataframe=test_set,
         tokenizer=RobertaTokenizer.from_pretrained('roberta-base'),
         max_len=256
     )
-    training_loader = DataLoader(training_set, batch_size=64)
-    test_loader = DataLoader(test_set, batch_size=64)
+    training_loader = DataLoader(training_set, batch_size=8)
+    test_loader = DataLoader(test_set, batch_size=8)
     # 创建模型
     device = (
         "cuda"
