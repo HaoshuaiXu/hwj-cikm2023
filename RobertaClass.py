@@ -3,12 +3,12 @@ from transformers import RobertaModel
 
 
 class RobertaClass(nn.Module):
-    def __init__(self):
+    def __init__(self, class_num):
         super().__init__()
         self.roberta = RobertaModel.from_pretrained("roberta-base")
         self.pre_classifier = nn.Linear(768, 768)
         self.dropout = nn.Dropout(0.5)
-        self.classifier = nn.Linear(768, 10)
+        self.classifier = nn.Linear(768, class_num)
     
     def forward(self, input_ids, attention_mask, token_type_ids):
         roberta_output = self.roberta(

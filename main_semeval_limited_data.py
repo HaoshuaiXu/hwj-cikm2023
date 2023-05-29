@@ -41,7 +41,7 @@ if __name__ == "__main__":
         if torch.backends.mps.is_available()
         else "cpu"
     )
-    model = RobertaClass()
+    model = RobertaClass(class_num=10)
     model.to(device)
     # 训练和测试
     loss_fn = torch.nn.CrossEntropyLoss()
