@@ -7,6 +7,7 @@ from RelationExtractionDataset import RelationExtractionDataset
 from RobertaClass import RobertaClass
 from train import train
 from test import test
+from caculate_metrics import caculate_output_metrics
 
 
 if __name__ == "__main__":
@@ -30,8 +31,8 @@ if __name__ == "__main__":
         tokenizer=RobertaTokenizer.from_pretrained('roberta-base'),
         max_len=256
     )
-    training_loader = DataLoader(training_set, batch_size=8)
-    test_loader = DataLoader(test_set, batch_size=8)
+    training_loader = DataLoader(training_set, batch_size=16, shuffle=True, num_workers=4)
+    test_loader = DataLoader(test_set, batch_size=16, shuffle=True, num_workers=4)
     # 创建模型
     device = (
         "cuda"
@@ -44,8 +45,8 @@ if __name__ == "__main__":
     model.to(device)
     # 训练和测试
     loss_fn = torch.nn.CrossEntropyLoss()
-    lr = 1e-3
-    epochs = 5
+    lr = 1e-5
+    epochs = 10
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
     for epoch in range(epochs):
         print(f"Epoch {epoch+1}\n-------------------------------")
@@ -57,11 +58,12 @@ if __name__ == "__main__":
             device=device,
             test_mode=False
         )
-        test(
+        y_true, y_pred = test(
             dataloader=test_loader,
             model=model,
             loss_fn=loss_fn,
             device=device,
             test_mode=False
         )
+        caculate_output_metrics(y_true, y_pred, epoch)
     print("Done!")
