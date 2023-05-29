@@ -12,6 +12,7 @@ def test(
     size = len(dataloader.dataset)
     num_batches = len(dataloader)
     test_loss, correct = 0, 0
+    model.eval()
     # 在测试集上运行
     with torch.no_grad():
         for _, data in enumerate(dataloader):
