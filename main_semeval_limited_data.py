@@ -15,7 +15,7 @@ if __name__ == "__main__":
     training_set = pd.read_csv(
         "./dataset/semeval_trainingset_class-code_without-entity.tsv",
         delimiter='\t'
-    ).sample(frac=0.3, ignore_index=True)
+    ).sample(frac=0.1, ignore_index=True)
     test_set = pd.read_csv(
         "./dataset/semeval_testset_classcode.tsv",
         delimiter='\t'
