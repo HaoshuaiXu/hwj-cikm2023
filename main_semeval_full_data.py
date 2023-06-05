@@ -13,11 +13,11 @@ from caculate_metrics import caculate_output_metrics
 if __name__ == "__main__":
     # 读取数据
     training_set = pd.read_csv(
-        "./dataset/semeval_trainingset_class-code_without-entity.tsv",
+        "./dataset/semeval_trainingset_double.tsv",
         delimiter='\t'
     )
     test_set = pd.read_csv(
-        "./dataset/semeval_testset_classcode.tsv",
+        "./dataset/semeval_testset_double_classcode.tsv",
         delimiter='\t'
     )
     # 载入 DataLoader
@@ -31,8 +31,8 @@ if __name__ == "__main__":
         tokenizer=RobertaTokenizer.from_pretrained('roberta-base'),
         max_len=256
     )
-    training_loader = DataLoader(training_set, batch_size=16, shuffle=True, num_workers=4)
-    test_loader = DataLoader(test_set, batch_size=16, shuffle=True, num_workers=4)
+    training_loader = DataLoader(training_set, batch_size=16, shuffle=True)
+    test_loader = DataLoader(test_set, batch_size=16, shuffle=True)
     # 创建模型
     device = (
         "cuda"
@@ -41,12 +41,12 @@ if __name__ == "__main__":
         if torch.backends.mps.is_available()
         else "cpu"
     )
-    model = RobertaClass(class_num=10)
+    model = RobertaClass(class_num=19)
     model.to(device)
     # 训练和测试
     loss_fn = torch.nn.CrossEntropyLoss()
     lr = 1e-5
-    epochs = 15
+    epochs = 10
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
     for epoch in range(epochs):
         print(f"Epoch {epoch+1}\n-------------------------------")

@@ -36,5 +36,5 @@ class RelationExtractionDataset(Dataset):
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-            'label': torch.tensor(self.label[idx])
+            'label': torch.tensor(int(self.label[idx]))
         }
